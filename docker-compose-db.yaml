@@ -6,4 +6,4 @@ services:
       - .env-db
     image: bartoszmajkowski/ticket-system-db:latest
     ports:
-      - "5432:5432"
+      - "7000:5432"
