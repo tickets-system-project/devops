@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    env_file:
+      - .env-db
+    image: bartoszmajkowski/ticket-system-db:latest
+    ports:
+      - "7653:5432"
+    networks:
+      - ticket-system-network
+
+  backend:
+    env_file:
+      - .env-backend
+    image: bartoszmajkowski/ticket-system-backend:latest
+    ports:
+      - "5115:5115"
+    networks:
+      - ticket-system-network
+
+networks:
+  ticket-system-network:
+    driver: bridge
