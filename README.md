@@ -10,4 +10,4 @@
 
 #### Jak postawić środowisko backend z bazą
 1. Potrzebne pliki .env czyli w tym przypadku to będzie `.env-db` oraz `.env-backend` przekopiować do folderu devops
-2. Włączyć środowisko za pomocą komendy `docker-compose-backend.yaml up`. Podczas wywoływania komendy należy znajdować się w folderze w którym znajduje się `docker-compose`
+2. Włączyć środowisko za pomocą komendy `docker-compose -f docker-compose-backend.yaml up`. Podczas wywoływania komendy należy znajdować się w folderze w którym znajduje się `docker-compose`
