@@ -5,5 +5,6 @@ services:
     env_file:
       - .env-db
     image: bartoszmajkowski/ticket-system-db:latest
+    pull_policy: always
     ports:
       - "7653:5432"
