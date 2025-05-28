@@ -16,6 +16,11 @@ services:
       - "7653:5432"
     networks:
       - ticket-system-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U myuser -d mydatabase" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     env_file:
@@ -26,6 +31,11 @@ services:
       - "5115:5115"
     networks:
       - ticket-system-network
+    depends_on:
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
 
 networks:
   ticket-system-network:
