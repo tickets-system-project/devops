@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+  db:
+    env_file:
+      - .env-db
+    image: bartoszmajkowski/ticket-system-db:latest
+    pull_policy: always
+    ports:
+      - "7653:5432"
+    networks:
+      - ticket-system-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U myuser -d mydatabase" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    env_file:
+      - .env-backend
+    image: bartoszmajkowski/ticket-system-backend:latest
+    pull_policy: always
+    ports:
+      - "5115:5115"
+    networks:
+      - ticket-system-network
+    depends_on:
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+
+  frontend:
+    image: bartoszmajkowski/ticket-system-frontend:latest
+    pull_policy: always
+    ports:
+      - "5173:5173"
+    networks:
+      - ticket-system-network
+    depends_on:
+      backend:
+        condition: service_started
+
+networks:
+  ticket-system-network:
+    driver: bridge
