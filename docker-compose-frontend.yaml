@@ -3,6 +3,8 @@ version: '3.8'
 services:
   mailhog:
     image: mailhog/mailhog:v1.0.1
+    networks:
+      - ticket-system-network
     ports:
       - "8025:8025"
       - "1025:1025"
