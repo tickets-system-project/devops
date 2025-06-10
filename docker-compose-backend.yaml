@@ -5,6 +5,8 @@ services:
     image: mailhog/mailhog:v1.0.1
     networks:
       - ticket-system-network
+    environment:
+      - TZ=Europe/Warsaw
     ports:
       - "8025:8025"
       - "1025:1025"
@@ -23,6 +25,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    environment:
+      - TZ=Europe/Warsaw
 
   backend:
     env_file:
@@ -33,6 +37,8 @@ services:
       - "5115:5115"
     networks:
       - ticket-system-network
+    environment:
+      - TZ=Europe/Warsaw
     depends_on:
       db:
         condition: service_healthy

@@ -3,6 +3,8 @@ version: '3.8'
 services:
   mailhog:
     image: mailhog/mailhog:v1.0.1
+    environment:
+      - TZ=Europe/Warsaw
     ports:
       - "8025:8025"
       - "1025:1025"
@@ -13,3 +15,5 @@ services:
     pull_policy: always
     ports:
       - "7653:5432"
+    environment:
+      - TZ=Europe/Warsaw
